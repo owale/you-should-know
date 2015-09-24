@@ -24,18 +24,45 @@ _For example, if you need to develop a web presentation layer, you will develop 
 
 
 **Packaging**
-_jar file_ can be executed in a _Java SE environment_ or in an **application client container**. Like any other archive format, the jar file contains an optional _META-INF directory_ for **meta information describing the archive**. The META-INF/MANIFEST.MF file is used to define
+  * _jar file_ can be executed in a _Java SE environment_ or in an **application client container**. Like any other archive format, the jar file contains an optional _META-INF directory_ for **meta information describing the archive**. The META-INF/MANIFEST.MF file is used to define
 extension- and package-related data. If **deployed in an ACC**, the _deployment descriptor can optionally be located at META-INF/application-client.xml._
 
-_EJb Module Jar_ It contains an optional META-INF/ejb-jar.xml deployment descriptor and can be deployed only in an EJB container.
+  * _EJb Module Jar_ It contains an optional META-INF/ejb-jar.xml deployment descriptor and can be deployed only in an EJB container.
 
-_A web application module_ contains servlets, JSPs, JSF pages, and web services, as well as any other web-related files , All these artifacts are packaged in a jar file with a .war extension. The optional web **deployment descriptor** is defined in the _WEB-INF/web.xml_ file. If the war contains **EJB Lite beans**, an optional deployment descriptor can be set at _WEB-INF/ejb-jar.xml_. **Java .class** files are placed under the _WEB-INF/classes_ directory and **dependent jar files** in the _WEB-INF/lib_ directory.
+  * _A web application module_ contains servlets, JSPs, JSF pages, and web services, as well as any other web-related files , All these artifacts are packaged in a jar file with a .war extension. The optional web **deployment descriptor** is defined in the _WEB-INF/web.xml_ file. If the war contains **EJB Lite beans**, an optional deployment descriptor can be set at _WEB-INF/ejb-jar.xml_. **Java .class** files are placed under the _WEB-INF/classes_ directory and **dependent jar files** in the _WEB-INF/lib_ directory.
 
-_An enterprise module_ can contain zero or more web application modules, zero or more EJB modules, and other common or external libraries. All this is packaged into an enterprise archive _(a jar file with an .ear extension)_ so that the deployment of these various modules happens coherently.The optional enterprise module **deployment descriptor** defined in the _META-INF/application.xml_ file. The **special lib directory** is used to share common libraries between the modules.
+  * _An enterprise module_ can contain zero or more web application modules, zero or more EJB modules, and other common or external libraries. All this is packaged into an enterprise archive _(a jar file with an .ear extension)_ so that the deployment of these various modules happens coherently.The optional enterprise module **deployment descriptor** defined in the _META-INF/application.xml_ file. The **special lib directory** is used to share common libraries between the modules.
+
+**OSGI** is a standard for dynamic component management and discovery , which  allow building modular java Applications or components can be remotely installed, started, stopped, updated, and uninstalled without requiring a reboot. Components can also detect the addition or removal of new services dynamically and adapt accordingly. example implementation is Apache Felix.
+
+The principle of **ORM** involves delegating access to relational databases to external tools
+or frameworks, which in turn give an object-oriented view of relational data, and vice versa.
+Mapping tools have a bidirectional correspondence between the database and objects.Several frameworks achieve this, such as __Hibernate, TopLink, and Java Data Objects (JDO)__ but __JPA__ is standard Java way to use ORM.
 
 
+**JPA** is an abstraction above JDBC that makes it possible to be independent of SQL. All classes and annotations of this API are in the javax.persistence package. The main components of JPA are as follows:
+  * ORM, which is the mechanism to map objects to data stored in a relational database.
+  * An entity manager API to perform database-related operations, such as Create, Read, Update, Delete (CRUD) operations. This API allows you to avoid using the JDBC API directly.
+  * The Java Persistence Query Language (JPQL), which allows you to retrieve data with an object-oriented query language.
+  * Transactions and locking mechanisms when accessing data concurrently provided by Java Transaction API (JTA). Resource-local (non-JTA) transactions are also supported by JPA.
+  * Callback and listeners to hook business logic into the life cycle of a persistent object.
 
+Reference implementation of __JPA 2.0__ is __EclipseLink 1.1__.
+Java EE 6 specifications uses the concept of **configuration by exception** , you can depend on default used configuration till you need custom one.
 
+Associated with every entity is **metadata** that describes the mapping. __This metadata enables the persistence provider to recognize an entity and to interpret the mapping__ , this metadate come in 2 forms **annotations** or **xml descriptors**.
 
+**Entities** are just Plain Old Java Objects (POJOs) that are managed, or not, by the entity manager. When they are managed, they have a persistence identity, and their state is synchronized
+with the database. When they are not managed (i.e., they are detached from the entity manager),
+they can be used like any other Java class.
+The operations made to entities fall into four categories: __persisting, updating, removing,
+and loading__, which correspond to the database operations of __inserting, updating, deleting, and
+selecting__, respectively. all this operations has **callback listeners** they work like **triggers** in a relational database which __allow you to add your own business logic when certain life-cycle events occur on an entity__.
 
+**An entity is managed :**
+  1. when it is loaded from the database such calling EntityManager.find() method, or create a
+  JPQL query to retrieve a list of entities.
 
+**An entity is detached :**
+  1. when calling the EntityManager.clear() method will clear the entity from the persistence context; it becomes detached.
+  2. When a managed entity is serialized, crosses the network __to be invoked remotely__ , cross layers __to be displayed in a presentation tier__, and gets deserialized, it is seen as a detached object. To reattach an entity, you need to call the EntityManager.merge() method.

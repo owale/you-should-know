@@ -25,7 +25,7 @@ with the same names and parameter types but different return types.
 The initialization block runs first, and
 then the body of the constructor is executed.
 
-construction process. Here is what happens in detail when a con-structor is called:
+**construction process. Here is what happens in detail when a con-structor is called :**
 	1. All data fields are initialized to their default value ( 0 , false , or null ).
 	2. All field initializers and initialization blocks are executed, in the order in which they
 	occur in the class declaration.
@@ -46,7 +46,7 @@ method will be called.
 
 The fact that an object variable can refer to multiple actual types is called polymorphism.
 
-
+```
 Manager boss = new Manager(. . .);
 Employee[] staff = new Employee[3];
 staff[0] = boss;
@@ -56,7 +56,7 @@ Manager m = staff[i]; // ERROR
 Manager[] managers = new Manager[10];
 Employee[] staff = managers; // OK
 staff[0] = new Employee("Harry Hacker", ...); why staff[0].setBonus(5000); will make error
-
+```
 an interface is not a class but a set of requirements for classes that want to conform to the interface.
 
 
@@ -77,4 +77,3 @@ The Java Language Specification calls any exception that derives from the class 
 a method must declare all the checked exceptions that it might throw.Unchecked exceptions are either beyond your control ( Error ) or result from conditions that you should not have allowed in the first place ( RuntimeException )
 
 finally clause : the code throws an exception that is caught in a catch clause, in our case, an IOException . For this, the program executes all code in the try block, up to the point at which the exception was thrown. The remaining code in the try block is skipped. The program then executes the code in the matching catch clause, then the code in the finally clause.
-
