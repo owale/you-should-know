@@ -79,18 +79,20 @@ a method must declare all the checked exceptions that it might throw.Unchecked e
 finally clause : the code throws an exception that is caught in a catch clause, in our case, an IOException . For this, the program executes all code in the try block, up to the point at which the exception was thrown. The remaining code in the try block is skipped. The program then executes the code in the matching catch clause, then the code in the finally clause.
 
 **Threads**
+
 **java.lang.Thread**
-	* Thread(Runnable target) __constructs a new thread that calls the run() method of the specified target.__
-	* void start() __starts this thread, causing the run() method to be called. This method will return immediately. The new thread runs concurrently.__
-	* void run() __calls the run method of the associated Runnable.__ and will start in same current thread.
-	* void interrupt() __sends an interrupt request to a thread. The interrupted status of the thread is set to true . If the thread is currently blocked by a call to sleep , then an InterruptedException is thrown.__
-	* static boolean interrupted() __tests whether the current thread (that is, the thread that is executing this instruction) has been interrupted. Note that this is a static method. The call has a side effect—it resets the interrupted status of the current thread to false.__
-	* boolean isInterrupted() __tests whether a thread has been interrupted. Unlike the static interrupted method, this call does not change the interrupted status of the thread.__
-	* static Thread currentThread() __returns the Thread object representing the currently executing thread.__
-	* void setDaemon(boolean isDaemon) __marks this thread as a daemon thread or a user thread. This method must be called before the thread is started.__
+
+ * Thread(Runnable target) __constructs a new thread that calls the run() method of the specified target.__
+ * void start() __starts this thread, causing the run() method to be called. This method will return immediately. The new thread runs concurrently.__
+ * void run() __calls the run method of the associated Runnable.__ and will start in same current thread.
+ * void interrupt() __sends an interrupt request to a thread. The interrupted status of the thread is set to true . If the thread is currently blocked by a call to sleep , then an InterruptedException is thrown.__
+ * static boolean interrupted() __tests whether the current thread (that is, the thread that is executing this instruction) has been interrupted. Note that this is a static method. The call has a side effect—it resets the interrupted status of the current thread to false.__
+ * boolean isInterrupted() __tests whether a thread has been interrupted. Unlike the static interrupted method, this call does not change the interrupted status of the thread.__
+ * static Thread currentThread() __returns the Thread object representing the currently executing thread.__
+ * void setDaemon(boolean isDaemon) __marks this thread as a daemon thread or a user thread. This method must be called before the thread is started.__
 
 **java.lang.Runnable**
-	* void run() __must be overriden and supplied with instructions for the task that you want to
+ * void run() __must be overriden and supplied with instructions for the task that you want to
 have executed__
 
 ```Java
@@ -123,12 +125,12 @@ public void run() {
 ```
 
 **Threads can be in one of six states:**
-	* New
-	* Runnable
-	* Blocked
-	* Waiting
-	* Timed waiting
-	* Terminated
+ * New
+ * Runnable
+ * Blocked
+ * Waiting
+ * Timed waiting
+ * Terminated
 __To determine the current state of a thread, simply call the__ **getState method**.
 
 **A daemon thread** is simply a thread that has no other role in life than to serve others. Examples are timer threads that send regular “timer ticks” to other threads or threads that clean up stale cache entries
@@ -191,9 +193,9 @@ public void method()
 The intrinsic object lock has a single associated condition. The wait method adds a thread to the wait set, and the notifyAll / notify methods unblock waiting threads. In other words, calling __wait or notifyAll__ is the equivalent of __intrinsicCondition.await(); intrinsicCondition.signalAll();__
 
 **java.lang.Object**
-	* void notifyAll() __unblocks the threads that called wait on this object. This method can only be called from within a synchronized method or block. The method throws an IllegalMonitorStateException if the current thread is not the owner of the object’s lock.__
-	* void notify() __unblocks one randomly selected thread among the threads that called wait on this object. This method can only be called from within a synchronized method or block. The method throws an IllegalMonitorStateException if the current thread is not the owner of the object’s lock.__
-	* void wait() __causes a thread to wait until it is notified. This method can only be called from within a synchronized method. It throws an IllegalMonitorStateException if the current thread is not the owner of the object’s lock.__
+ * void notifyAll() __unblocks the threads that called wait on this object. This method can only be called from within a synchronized method or block. The method throws an IllegalMonitorStateException if the current thread is not the owner of the object’s lock.__
+ * void notify() __unblocks one randomly selected thread among the threads that called wait on this object. This method can only be called from within a synchronized method or block. The method throws an IllegalMonitorStateException if the current thread is not the owner of the object’s lock.__
+ * void wait() __causes a thread to wait until it is notified. This method can only be called from within a synchronized method. It throws an IllegalMonitorStateException if the current thread is not the owner of the object’s lock.__
 
 **A Callable** is similar to a Runnable , but it returns a value. The Callable interface is a parameterized type, with a single method call .
 ```Java
