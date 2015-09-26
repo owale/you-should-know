@@ -66,3 +66,15 @@ selecting__, respectively. all this operations has **callback listeners** they w
 **An entity is detached :**
   1. when calling the EntityManager.clear() method will clear the entity from the persistence context; it becomes detached.
   2. When a managed entity is serialized, crosses the network __to be invoked remotely__ , cross layers __to be displayed in a presentation tier__, and gets deserialized, it is seen as a detached object. To reattach an entity, you need to call the EntityManager.merge() method.
+
+
+**JMS - Java Messaging System :** __JMS provides a mechanism of communication between applications__ **without being coupled.** __The applications can talk to each other via the JMS provider without even knowing who is on the other side of the fence.__
+
+**Three important moving pieces in JMS:**
+ * Provider __has overall responsibility in this architecture will make sure all the consumers receive the messages, while at the same time, all providers are able to publish the messages__
+ * Producer __responsible of publishing messages to the broker 'Provider'__
+ * Consumer __recieve messages form provider and act accoridinglly__
+
+**Messaging Models :**
+ 1. P2P (point to point) __when message is published one and only one consumer will receive the message.__ **model is called Queue.**
+ 2. Pub/Sub (public subscribe) __if a message is published to a destination, there could be several subscribers each receiving a copy of the message. The publisher obviously publishes the message once. The subscribers interested will listen to the same destination to consume that message.__ **model is called Topic.**
