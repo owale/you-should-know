@@ -1,5 +1,3 @@
-**java ee hints**
-
 _Java EE_ is a set of specifications intended for enterprise applications. It can be seen as an extension of Java SE to facilitate the development of distributed, robust, powerful, and highly available applications.
 
 The Java EE infrastructure is partitioned into logical domains called **containers**. Each container has a specific role, supports a set of APIs, and offers services to components (security, database access, transaction handling, naming directory, resource injection).
@@ -24,14 +22,14 @@ _For example, if you need to develop a web presentation layer, you will develop 
 
 
 **Packaging**
-  * _jar file_ can be executed in a _Java SE environment_ or in an **application client container**. Like any other archive format, the jar file contains an optional _META-INF directory_ for **meta information describing the archive**. The META-INF/MANIFEST.MF file is used to define
+ * _jar file_ can be executed in a _Java SE environment_ or in an **application client container**. Like any other archive format, the jar file contains an optional _META-INF directory_ for **meta information describing the archive**. The META-INF/MANIFEST.MF file is used to define
 extension- and package-related data. If **deployed in an ACC**, the _deployment descriptor can optionally be located at META-INF/application-client.xml._
 
-  * _EJb Module Jar_ It contains an optional META-INF/ejb-jar.xml deployment descriptor and can be deployed only in an EJB container.
+ * _EJb Module Jar_ It contains an optional META-INF/ejb-jar.xml deployment descriptor and can be deployed only in an EJB container.
 
-  * _A web application module_ contains servlets, JSPs, JSF pages, and web services, as well as any other web-related files , All these artifacts are packaged in a jar file with a .war extension. The optional web **deployment descriptor** is defined in the _WEB-INF/web.xml_ file. If the war contains **EJB Lite beans**, an optional deployment descriptor can be set at _WEB-INF/ejb-jar.xml_. **Java .class** files are placed under the _WEB-INF/classes_ directory and **dependent jar files** in the _WEB-INF/lib_ directory.
+ * _A web application module_ contains servlets, JSPs, JSF pages, and web services, as well as any other web-related files , All these artifacts are packaged in a jar file with a .war extension. The optional web **deployment descriptor** is defined in the _WEB-INF/web.xml_ file. If the war contains **EJB Lite beans**, an optional deployment descriptor can be set at _WEB-INF/ejb-jar.xml_. **Java .class** files are placed under the _WEB-INF/classes_ directory and **dependent jar files** in the _WEB-INF/lib_ directory.
 
-  * _An enterprise module_ can contain zero or more web application modules, zero or more EJB modules, and other common or external libraries. All this is packaged into an enterprise archive _(a jar file with an .ear extension)_ so that the deployment of these various modules happens coherently.The optional enterprise module **deployment descriptor** defined in the _META-INF/application.xml_ file. The **special lib directory** is used to share common libraries between the modules.
+ * _An enterprise module_ can contain zero or more web application modules, zero or more EJB modules, and other common or external libraries. All this is packaged into an enterprise archive _(a jar file with an .ear extension)_ so that the deployment of these various modules happens coherently.The optional enterprise module **deployment descriptor** defined in the _META-INF/application.xml_ file. The **special lib directory** is used to share common libraries between the modules.
 
 **OSGI** is a standard for dynamic component management and discovery , which  allow building modular java Applications or components can be remotely installed, started, stopped, updated, and uninstalled without requiring a reboot. Components can also detect the addition or removal of new services dynamically and adapt accordingly. example implementation is Apache Felix.
 
@@ -41,11 +39,11 @@ Mapping tools have a bidirectional correspondence between the database and objec
 
 
 **JPA** is an abstraction above JDBC that makes it possible to be independent of SQL. All classes and annotations of this API are in the javax.persistence package. The main components of JPA are as follows:
-  * ORM, which is the mechanism to map objects to data stored in a relational database.
-  * An entity manager API to perform database-related operations, such as Create, Read, Update, Delete (CRUD) operations. This API allows you to avoid using the JDBC API directly.
-  * The Java Persistence Query Language (JPQL), which allows you to retrieve data with an object-oriented query language.
-  * Transactions and locking mechanisms when accessing data concurrently provided by Java Transaction API (JTA). Resource-local (non-JTA) transactions are also supported by JPA.
-  * Callback and listeners to hook business logic into the life cycle of a persistent object.
+ * ORM, which is the mechanism to map objects to data stored in a relational database.
+ * An entity manager API to perform database-related operations, such as Create, Read, Update, Delete (CRUD) operations. This API allows you to avoid using the JDBC API directly.
+ * The Java Persistence Query Language (JPQL), which allows you to retrieve data with an object-oriented query language.
+ * Transactions and locking mechanisms when accessing data concurrently provided by Java Transaction API (JTA). Resource-local (non-JTA) transactions are also supported by JPA.
+ * Callback and listeners to hook business logic into the life cycle of a persistent object.
 
 Reference implementation of __JPA 2.0__ is __EclipseLink 1.1__.
 Java EE 6 specifications uses the concept of **configuration by exception** , you can depend on default used configuration till you need custom one.
@@ -64,8 +62,8 @@ selecting__, respectively. all this operations has **callback listeners** they w
   JPQL query to retrieve a list of entities.
 
 **An entity is detached :**
-  1. when calling the EntityManager.clear() method will clear the entity from the persistence context; it becomes detached.
-  2. When a managed entity is serialized, crosses the network __to be invoked remotely__ , cross layers __to be displayed in a presentation tier__, and gets deserialized, it is seen as a detached object. To reattach an entity, you need to call the EntityManager.merge() method.
+ 1. when calling the EntityManager.clear() method will clear the entity from the persistence context; it becomes detached.
+ 2. When a managed entity is serialized, crosses the network __to be invoked remotely__ , cross layers __to be displayed in a presentation tier__, and gets deserialized, it is seen as a detached object. To reattach an entity, you need to call the EntityManager.merge() method.
 
 
 **JMS - Java Messaging System :** __JMS provides a mechanism of communication between applications__ **without being coupled.** __The applications can talk to each other via the JMS provider without even knowing who is on the other side of the fence.__
@@ -78,3 +76,12 @@ selecting__, respectively. all this operations has **callback listeners** they w
 **Messaging Models :**
  1. P2P (point to point) __when message is published one and only one consumer will receive the message.__ **model is called Queue.**
  2. Pub/Sub (public subscribe) __if a message is published to a destination, there could be several subscribers each receiving a copy of the message. The publisher obviously publishes the message once. The subscribers interested will listen to the same destination to consume that message.__ **model is called Topic.**
+
+**EJBs (Entriprise Java Bean)** are server-side components that encapsulate business logic and take care of transactions and security.
+**Types of EJBs :**
+ * **session beans** __used to encapsulate high-level business logic, which makes them the most important part of the EJB technology__
+  1. __Stateless:__ The session bean contains no conversational state between methods, so they can be pooled and shared by several clients.
+  2. __Stateful:__ The session bean contains conversational state, which must be retained across methods for a single user. useful for tasks that have to be done in several steps, each of which relies on the state maintained in a previous step.
+  3. __Singleton:__ A single session bean is shared between clients and supports concurrent access.
+ * **message driven beans :** __used for integrating with external systems by receiving asynchronous messages using JMS__
+ * **timer service :** __standard Java EE answer to scheduling tasks.__
