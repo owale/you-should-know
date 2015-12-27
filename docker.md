@@ -3,6 +3,15 @@
 **When we have a container running, all the changes we make to its filesystem are permanent between start and stop. Remember that changes made to the container's filesystem are not written to the underlying Docker image**
 
 
+**what happen when you start container:**
+ - entrypoint will run first, if not spefied docker has default entrypoint _/bin/sh -c_.
+ - start your command by passing them to entrypoint.
+ so when you run `dokcer run -i -t ubuntu bash` actual command executed is `/bin/sh -c bash`
+ so if using /bin/cat as entrypoint of cating image runing it as `docker run catimg /etc/passwd` so end result execution is simply /bin/cat /etc/passwd.
+
+//TODO: docker entrypoint as shell script
+//TODO: not foreget to explain bash $@ and exec
+
 **Dockerfile :** _This is the image description that runs when an image is being created._
 
 ```bash
